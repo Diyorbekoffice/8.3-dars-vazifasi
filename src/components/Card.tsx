@@ -1,7 +1,6 @@
 import { FC, useState, useEffect } from "react";
 
 const Card: FC = () => {
-    // State for form inputs
     const [logoUrl, setLogoUrl] = useState("");
     const [companyName, setCompanyName] = useState("");
     const [position, setPosition] = useState("");
@@ -11,9 +10,8 @@ const Card: FC = () => {
     const [location, setLocation] = useState("");
     const [isNew, setIsNew] = useState(false);
     const [isFeatured, setIsFeatured] = useState(false);
-    const [cards, setCards] = useState<any[]>([]); // Store cards
+    const [cards, setCards] = useState<any[]>([]); 
 
-    // Retrieve cards from localStorage on page load
     useEffect(() => {
         const storedCards = localStorage.getItem("cards");
         if (storedCards) {
@@ -21,16 +19,13 @@ const Card: FC = () => {
         }
     }, []);
 
-    // Update localStorage whenever cards are updated
     useEffect(() => {
         if (cards.length > 0) {
             localStorage.setItem("cards", JSON.stringify(cards));
         }
     }, [cards]);
 
-    // Handle form submission with validation
     const handleSubmit = () => {
-        // Validate required fields
         if (!logoUrl) {
             alert("Logotip URL bo'sh bo'lmasligi kerak");
             return;
@@ -72,8 +67,7 @@ const Card: FC = () => {
             isFeatured,
         };
 
-        setCards([...cards, newCard]); // Add new card to state
-        // Reset form after submission
+        setCards([...cards, newCard]); 
         setLogoUrl("");
         setCompanyName("");
         setPosition("");
@@ -85,26 +79,7 @@ const Card: FC = () => {
         setIsFeatured(false);
     };
 
-    // Focus on the first empty field
-    const focusOnEmptyField = () => {
-        if (!logoUrl) {
-            document.getElementById("logoUrlInput")?.focus();
-        } else if (!companyName) {
-            document.getElementById("companyNameInput")?.focus();
-        } else if (!position) {
-            document.getElementById("positionInput")?.focus();
-        } else if (skills.length === 0) {
-            document.getElementById("skillsCheckbox")?.focus();
-        } else if (!selectedTime) {
-            document.getElementById("selectedTimeSelect")?.focus();
-        } else if (!jobType) {
-            document.getElementById("jobTypeSelect")?.focus();
-        } else if (!location) {
-            document.getElementById("locationSelect")?.focus();
-        }
-    };
-
-    // Delete a card
+   
     const handleDelete = (index: number) => {
         const updatedCards = cards.filter((_, cardIndex) => cardIndex !== index);
         setCards(updatedCards);
@@ -288,7 +263,6 @@ const Card: FC = () => {
                     </div>
                 </div>
             </div>
-             {/* Display Cards */}
              <div className="flex flex-col w-1/2 gap-20 m-20 items-center justify-center">
                 {cards.map((card, index) => (
                     <div key={index} className="border border-gray-300 rounded-lg p-4 flex gap-5">
